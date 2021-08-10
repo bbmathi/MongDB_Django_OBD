@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        var api_url = "http://127.0.0.1:8080/api/tutorials";
+        debugger;
+        $.ajax(api_url, {
+            type: 'GET',
+            success: function (data, status, xhr) {
+                writeTableContent(data)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                alert(errorMessage)
+            }
+        });
+
+        function writeTableContent(response) {
+            var tr = '';
+            $.each(response, function (i, item) {
+                tr += '<tr>'
+               // tr += '<td>' + item.OrgID + '</td>'
+               // tr += '<td>' + item.SiteID + '</td>'
+                tr += '<td>' + item.VOB_ID + '</td>'
+                tr += '<td>' + item.OBD_TAG_ID + '</td>'
+               // tr += '<td>' + item.IMEI + '</td>'
+               // tr += '<td>' + item.Latitude + '</td>'
+                //tr += '<td>' + item.North_South + '</td>'
+                //tr += '<td>' + item.Longitude + '</td>'
+                //tr += '<td>' + item.East_West + '</td>'
+                tr += '<td>' + item.Device_Status + '</td>'
+                tr += '<td>' + item.Signal_Strength + '</td>'
+                //tr += '<td>' + item.timeout + '</td>'
+                tr += '<td>' + item.Internal_Battery_Level + '</td>'
+                ;
+                tr += '</tr>'
+            });
+            $('#obdTableData').append(tr);
+        }
+
+    </script>
+
+    <!-- CSS FOR STYLING THE PAGE -->
+    <style>
+        table {
+            margin: 0 auto;
+            font-size: large;
+            border: 1px solid black;
+        }
+
+        h1 {
+            text-align: center;
+            color: #006600;
+            font-size: xx-large;
+            font-family: 'Gill Sans',
+                'Gill Sans MT', ' Calibri',
+                'Trebuchet MS', 'sans-serif';
+        }
+
+        td {
+            background-color: #E4F5D4;
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            font-weight: bold;
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        td {
+            font-weight: lighter;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Here a loader is created which
+             loads till response comes -->
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="loading">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <h1>OBD Data</h1>
+    <!-- table for showing data -->
+    <div id="obdData">
+        <table>
+            <thead>
+            <!--
+                <th>ORG ID</th>
+                <th>SITE ID</th> -->
+                <th>VOB ID</th>
+                <th>OBD TAG ID</th>
+                <!--<th>IMEI ID</th> -->
+              <!--  <th>LATITUDE</th>
+                <th>NORTH/SOUTH</th>
+                <th>LONGITUDE</th>
+                <th>EAST/WEST</th> -->
+                <th>STATUS</th>
+                <th>SIGNAL STRENGH</th>
+               <!-- <th>TIMEOUT</th> -->
+
+                <th>BATTERY LEVEL</th>
+            </thead>
+            <tbody id="obdTableData">
+
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
