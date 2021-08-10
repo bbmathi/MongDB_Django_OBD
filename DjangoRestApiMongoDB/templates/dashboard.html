@@ -112,12 +112,12 @@
          var settings = {
            "async": true,
            "crossDomain": true,
-           "url": "http://127.0.0.1:8000/api/RPM_tag1",
+           "url": "http://127.0.0.1:8080/api/obddata",
            "method": "GET"
          }
          $.ajax(settings).done(function (response) {
            console.log(response);
-           var content = response.RPM;
+           var content = response.Rpm;
            $("#RPM_Tag1").append(content);
          });
 

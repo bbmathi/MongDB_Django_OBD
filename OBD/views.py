@@ -39,24 +39,24 @@ def obd_list(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def obd_detail(request, pk):
     try: 
-        tutorial = Obd.objects.get(pk=pk)
+        obd_data = Obd.objects.get(pk=pk)
     except Obd.DoesNotExist:
         return JsonResponse({'message': 'The OBD Data does not exist'}, status=status.HTTP_404_NOT_FOUND)
  
     if request.method == 'GET': 
-        obd_serializer = ObdSerializer(tutorial)
+        obd_serializer = ObdSerializer(obd_data)
         return JsonResponse(obd_serializer.data)
  
     elif request.method == 'PUT': 
         obd_data = JSONParser().parse(request)
-        obd_serializer = ObdSerializer(tutorial, data=obd_data)
+        obd_serializer = ObdSerializer(obd_data, data=obd_data)
         if obd_serializer.is_valid():
             obd_serializer.save()
             return JsonResponse(obd_serializer.data)
         return JsonResponse(obd_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
  
     elif request.method == 'DELETE': 
-        tutorial.delete() 
+        obd_data.delete()
         return JsonResponse({'message': 'OBD Data was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
     
         
@@ -75,3 +75,5 @@ def MapView(request):
     return render(request,"map.html")
 def ChartView(request):
     return render(request,"dashboard.html")
+def AlertView(request):
+    return render(request,"alert_view.html")

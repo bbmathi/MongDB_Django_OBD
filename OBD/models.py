@@ -14,6 +14,7 @@ class Obd(models.Model):
     Signal_Strength = models.CharField(max_length=70, blank=False, default='')
     timeout = models.CharField(max_length=70, blank=False, default='')
     Device_Status = models.CharField(max_length=70, blank=False, default='')
+    Rpm = models.CharField(max_length=70, blank=False, default='')
     Internal_Battery_Level = models.CharField(max_length=70, blank=False, default='')
 
 

@@ -19,4 +19,5 @@ class ObdSerializer(serializers.ModelSerializer):
                   'Signal_Strength',
                   'timeout',
                   'Device_Status',
+                  'Rpm',
                   'Internal_Battery_Level',)

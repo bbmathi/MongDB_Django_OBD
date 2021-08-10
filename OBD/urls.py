@@ -8,4 +8,6 @@ urlpatterns = [
     path('table', views.TableView),
     path('map', views.MapView),
     path('dashboard', views.ChartView),
+    path('alert', views.AlertView),
+
 ]
