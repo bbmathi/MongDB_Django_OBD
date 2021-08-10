@@ -1,13 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layouts/base.html" %}
+{% block title %} Dashboard {% endblock %}
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% load static %}
+{% block content %}
+<body>
+    <!-- Here a loader is created which
+             loads till response comes -->
+    <div class="d-flex justify-content-center"></div>
+    <h1>OBD Data</h1>
+    <!-- table for showing data -->
+    <div id="obdData">
+      <div class="card card-body shadow-sm table-wrapper table-responsive">
+      <table class="table table-hover">
+            <thead>
+                <th>ORG ID</th>
+                <th>SITE ID</th>
+                <th>VOB ID</th>
+                <th>OBD TAG ID</th>
+                <th>IMEI ID</th>
+                <th>LATITUDE</th>
+                <th>NORTH/SOUTH</th>
+                <th>LONGITUDE</th>
+                <th>EAST/WEST</th>
+                <th>SS</th>
+                <th>TIMEOUT</th>
+                <th>STATUS</th>
+                <th>BATTERY LEVEL</th>
+            </thead>
+            <tbody id="obdTableData">
+
+            </tbody>
+        </table>
+    </div>
+         </div>
+</body>
+
     <script type="text/javascript">
-        var api_url = "http://127.0.0.1:8080/api/tutorials";
+        var api_url = "http://127.0.0.1:8080/api/obddata";
         debugger;
         $.ajax(api_url, {
             type: 'GET',
@@ -43,76 +74,38 @@
         }
 
     </script>
+<div class="card-footer px-3 border-0 d-flex align-items-center justify-content-between">
+          <nav aria-label="Page navigation example">
+              <ul class="pagination mb-0">
+                  <li class="page-item">
+                      <a class="page-link" href="#">Previous</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="#">1</a>
+                  </li>
+                  <li class="page-item active">
+                      <a class="page-link" href="#">2</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="#">3</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="#">4</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="#">5</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="#">Next</a>
+                  </li>
+              </ul>
+          </nav>
+          <div class="fw-bold small d-none d-lg-block">Showing <b>5</b> out of <b>25</b> entries</div>
+      </div>
 
-    <!-- CSS FOR STYLING THE PAGE -->
-    <style>
-        table {
-            margin: 0 auto;
-            font-size: large;
-            border: 1px solid black;
-        }
 
-        h1 {
-            text-align: center;
-            color: #006600;
-            font-size: xx-large;
-            font-family: 'Gill Sans',
-                'Gill Sans MT', ' Calibri',
-                'Trebuchet MS', 'sans-serif';
-        }
+{% endblock content %}
+{% block javascripts %}{% endblock javascripts %}
 
-        td {
-            background-color: #E4F5D4;
-            border: 1px solid black;
-        }
 
-        th,
-        td {
-            font-weight: bold;
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-        }
 
-        td {
-            font-weight: lighter;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Here a loader is created which
-             loads till response comes -->
-    <div class="d-flex justify-content-center">
-        <div class="spinner-border" role="status" id="loading">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <h1>OBD Data</h1>
-    <!-- table for showing data -->
-    <div id="obdData">
-        <table>
-            <thead>
-                <th>ORG ID</th>
-                <th>SITE ID</th>
-                <th>VOB ID</th>
-                <th>OBD TAG ID</th>
-                <th>IMEI ID</th>
-                <th>LATITUDE</th>
-                <th>NORTH/SOUTH</th>
-                <th>LONGITUDE</th>
-                <th>EAST/WEST</th>
-                <th>SS</th>
-                <th>TIMEOUT</th>
-                <th>STATUS</th>
-                <th>BATTERY LEVEL</th>
-            </thead>
-            <tbody id="obdTableData">
-
-            </tbody>
-        </table>
-
-    </div>
-</body>
-
-</html>

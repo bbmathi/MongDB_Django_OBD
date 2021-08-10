@@ -1,0 +1,165 @@
+{% extends "layouts/base.html" %}
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% load static %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+        <div class="btn-toolbar dropdown">
+            <button class="btn btn-dark btn-sm me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="fas fa-plus me-2"></span>New Task
+            </button>
+            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-0">
+                <a class="dropdown-item fw-normal rounded-top" href="#"><span class="fas fa-tasks"></span>New Task</a>
+                <a class="dropdown-item fw-normal" href="#"><span class="fas fa-cloud-upload-alt"></span>Upload Files</a>
+                <a class="dropdown-item fw-normal" href="#"><span class="fas fa-user-shield"></span>Preview Security</a>
+                <div role="separator" class="dropdown-divider my-0"></div>
+                <a class="dropdown-item fw-normal rounded-bottom" href="#"><span class="fas fa-rocket text-danger"></span>Upgrade to Pro</a>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-primary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-primary">Export</button>
+        </div>
+    </div>
+   <div class="row justify-content-md-center">
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                            <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                    <span class='fa-stack fa-lg'>
+                                            <i class='fas fa-tachometer-alt fa-stack-1x' style="font-size:80px;color:black"></i>
+                                    </span>
+                                    </div>
+                            <div class="col-12 col-xl-7 px-xl-0">
+                                <div class="d-none d-sm-block">
+                                    <a href="://brandfolder.com/quote"></a>
+                                    <h1 class="h5">OBD TAG 1</h1>
+                                   <div class="mb-0" id="RPM_Tag1"  style="font-size:20px;color:#1a73e8"></div>RPM
+                                   </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                            <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                    <span class='fa-stack fa-lg'>
+                                       <i class='fas fa-tachometer-alt fa-stack-1x' style="font-size:80px;color:black"></i>
+                                    </span>
+                                </div>
+                            <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                              <a href="://brandfolder.com/quote"></a>
+                                    <h1 class="h5">OBD TAG 2</h1>
+                                   <div class="mb-0" id="RPM_Tag2"  style="font-size:20px;color:#1a73e8"></div>RPM
+                                  </div>
+                          </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+    <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-light shadow-sm">
+                <div class="card-body">
+                    <div class="row d-block d-xl-flex align-items-center">
+                        <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                <span class='fa-stack fa-lg'>
+                                     <i class='fas fa-tachometer-alt fa-stack-1x' style="font-size:80px;color:black"></i>
+                                </span>
+
+                          </div>
+                        <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                               <a href="://brandfolder.com/quote"></a>
+                                    <h1 class="h5">OBD TAG 3</h1>
+                                   <div class="mb-0" id="RPM_Tag3"  style="font-size:20px;color:#1a73e8"></div>RPM
+                               </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-light shadow-sm">
+                <div class="card-body">
+                    <div class="row d-block d-xl-flex align-items-center">
+                        <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                <span class='fa-stack fa-lg'>
+                                     <i class='fas fa-tachometer-alt fa-stack-1x' style="font-size:80px;color:red"></i>
+                                </span>
+                          </div>
+                        <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                           <a href="://brandfolder.com/quote"></a>
+                                    <h3 class="h5">OBD TAG 4</h3>
+                                   <div class="mb-0" id="RPM_Tag4"  style="font-size:20px;color:#1a73e8"></div>RPM
+                              </div>
+                                   </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script type="application/javascript" >
+         var settings = {
+           "async": true,
+           "crossDomain": true,
+           "url": "http://127.0.0.1:8000/api/RPM_tag1",
+           "method": "GET"
+         }
+         $.ajax(settings).done(function (response) {
+           console.log(response);
+           var content = response.RPM;
+           $("#RPM_Tag1").append(content);
+         });
+
+         var settings2 = {
+           "async": true,
+           "crossDomain": true,
+           "url": "http://127.0.0.1:8000/api/RPM_tag2",
+           "method": "GET"
+         }
+         $.ajax(settings2).done(function (response) {
+           console.log(response);
+           var content2 = response.RPM;
+           $("#RPM_Tag2").append(content2);
+         });
+
+         var settings3 = {
+           "async": true,
+           "crossDomain": true,
+           "url": "http://127.0.0.1:8000/api/RPM_tag1",
+           "method": "GET"
+         }
+         $.ajax(settings3).done(function (response) {
+           console.log(response);
+           var content3 = response.RPM;
+           $("#RPM_Tag3").append(content3);
+         });
+
+         var settings4 = {
+           "async": true,
+           "crossDomain": true,
+           "url": "http://127.0.0.1:8000/api/RPM_tag2",
+           "method": "GET"
+         }
+         $.ajax(settings4).done(function (response) {
+           console.log(response);
+           var content4 = response.RPM;
+           $("#RPM_Tag4").append(content4);
+         });
+      </script>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}{% endblock javascripts %}
