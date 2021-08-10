@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Tutorial(models.Model):
+class Obd(models.Model):
     OrgID=models.CharField(max_length=70, blank=False, default='')
     SiteID=models.CharField(max_length=70, blank=False, default='')
     VOB_ID=models.CharField(max_length=70, blank=False, default='')

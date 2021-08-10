@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Tutorials application 
-    'tutorials.apps.TutorialsConfig',
+    'OBD.apps.ObdConfig',
     # CORS
     'corsheaders',
 ]

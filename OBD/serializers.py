@@ -1,11 +1,11 @@
 from rest_framework import serializers 
-from tutorials.models import Tutorial
+from OBD.models import Obd
  
  
-class TutorialSerializer(serializers.ModelSerializer):
+class ObdSerializer(serializers.ModelSerializer):
  
     class Meta:
-        model = Tutorial
+        model = Obd
         fields = ('id',
                   'OrgID',
                   'SiteID',
