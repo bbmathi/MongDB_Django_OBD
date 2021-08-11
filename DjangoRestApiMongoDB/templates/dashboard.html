@@ -6,7 +6,9 @@
 {% load static %}
 
 {% block content %}
+<style>
 
+</style>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
     <div class="btn-toolbar dropdown">
         <button class="btn btn-dark btn-sm me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -35,14 +37,14 @@
                 <div
                     class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
                     <span class="fa-stack fa-lg">
-                        <i class="fas fa-tachometer-alt fa-stack-1x" style="font-size:80px;color:black"></i>
+                        <i class="fas fa-tachometer-alt fa-stack-1x IEMI_icon" data-imei data-rpm style="font-size:80px;color:black"></i>
                     </span>
                 </div>
                 <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                         <a href="://brandfolder.com/quote"></a>
-                        <h1 class="h5">OBD TAG 1</h1>
-                        <div class="mb-0 RPM_Tag" style="font-size:20px;color:#1a73e8"></div>RPM
+                        <div class="mb-0 IEMI_Tag" data-imei style="font-size:18px;color:#1a73e8"></div>
+                        <div class="mb-0 RPM_Tag" style="font-size:25px;color:#ff9900"></div>RPM
                     </div>
                 </div>
             </div>
@@ -51,15 +53,18 @@
 
 </template>
 <script type="application/javascript">
+    var requestUrl = location.origin;
+
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://127.0.0.1:8000/api/obddata",
+        "url": requestUrl + "/api/obddata",
         "method": "GET"
     }
     $.ajax(Object.assign(settings)).done(function (response) {
         console.log(response);
         var content = response.Rpm;
+        var id = response.IMEI
         appendTemplate(response);
         var td = clone.querySelectorAll("td");
 
@@ -72,7 +77,24 @@
                 var template = document.querySelector('#rpmTemplate');
                 var clone = template.content.cloneNode(true);
                 var rpm = clone.querySelectorAll(".RPM_Tag");
+                var imei= clone.querySelectorAll(".IEMI_Tag");
+                var imeiIcon= clone.querySelectorAll(".IEMI_icon");
+               
                 rpm[0].innerHTML = val.Rpm;
+                imei[0].innerHTML = val.IMEI;
+                imei[0].setAttribute("data-imei", val.IMEI);  
+                imeiIcon[0].setAttribute("data-imei", val.IMEI); 
+                imeiIcon[0].setAttribute("data-rpm", val.Rpm); 
+
+                if (parseInt(val.Rpm) > 950)
+                {
+                    imeiIcon[0].style.color = "red";
+                }
+                else{
+                    imeiIcon[0].style.color = "black";
+                }
+
+                
 
                 $('#rpmcontainer').append(clone);
             })
