@@ -59,7 +59,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    'https://localhost:8080',
+    'https://localhost:8000',
 )
 
 ROOT_URLCONF = 'DjangoRestApiMongoDB.urls'
