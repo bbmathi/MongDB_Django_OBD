@@ -20,42 +20,28 @@
     map.fitWorld();
     function success(data){
         jsonData = data;
-        var lat = jsonData.Latitude;
-        var lon = jsonData.Longitude
-        var imei = jsonData.IMEI;
-        var timestamp = jsonData.timestamp;
-        var target = L.latLng(lat, lon);
-        map.setView(target, 5 );
-        var mark=L.marker(target).bindPopup("Tag_ID: "+imei).addTo(map);
-        mark.openPopup();
+        debugger;
+        var targets = [];
+        $.each(jsonData , function(idx,val){
+            var lat = val.Latitude;
+            var lon = val.Longitude
+            var imei = val.IMEI;
+            var timestamp = val.timestamp;
+            var target = L.latLng(lat, lon);
+            targets.push(target);
+
+            var mark=L.marker(target).bindPopup("Tag_ID: "+imei).addTo(map);
+            mark.openPopup();
+
+        });
+        map.setView(targets[0], 5 );
+
 
                 }
 
 function callAjax_1(){
             $.ajax({
-                url: 'http://127.0.0.1:8080/api/tutorials',
-                dataType: 'json',
-                type: 'get',
-                contentType: 'application/json'
-})
-
-.done(function (data) { success(data); })
-.fail(function (jqXHR, textStatus, errorThrown) {  console.log(jqXhr); });
-              }
-function callAjax_2(){
-            $.ajax({
-                url: 'http://127.0.0.1:8000/api/getlatlan_tag2',
-                dataType: 'json',
-                type: 'get',
-                contentType: 'application/json'
-})
-
-.done(function (data) { success(data); })
-.fail(function (jqXHR, textStatus, errorThrown) {  console.log(jqXhr); });
-              }
-function callAjax_3(){
-            $.ajax({
-                url: 'http://127.0.0.1:8000/api/getlatlan_tag3',
+                url: 'http://127.0.0.1:8080/api/obddata',
                 dataType: 'json',
                 type: 'get',
                 contentType: 'application/json'
@@ -67,8 +53,7 @@ function callAjax_3(){
 
 $(document).ready(function(e){
     callAjax_1();
-    callAjax_2();
-    callAjax_3();
+
 });
 
 </script>

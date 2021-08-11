@@ -115,7 +115,7 @@
            "url": "http://127.0.0.1:8080/api/obddata",
            "method": "GET"
          }
-         $.ajax(settings).done(function (response) {
+         $.ajax(Object.assign(settings).done(function (response) {
            console.log(response);
            var content = response.Rpm;
            $("#RPM_Tag1").append(content);

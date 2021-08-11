@@ -1,3 +1,5 @@
+from typing import List
+
 from django.shortcuts import render
 
 from django.http.response import JsonResponse
@@ -9,18 +11,28 @@ from OBD.models import Obd
 from OBD.serializers import ObdSerializer
 from rest_framework.decorators import api_view
 
+from .databaseconfig import Databaseconfig
+from .import databaseconfig as dbc
+import json
+
 
 @api_view(['GET', 'POST', 'DELETE'])
 def obd_list(request):
     if request.method == 'GET':
-        data = Obd.objects.all()
-        
-        OrgID = request.GET.get('OrgID', None)
-        if OrgID is not None:
-            data = data.filter(title__icontains=OrgID)
-        
-        obd_serializer = ObdSerializer(data, many=True)
-        return JsonResponse(obd_serializer.data, safe=False)
+        connection = Databaseconfig()
+        connection.connect()
+        db = dbc.client["OBD"]
+        documents = db['OBD_Device_Status'].find()
+        print("document readed" , documents)
+        listOfDocuments: List = []
+        for document in documents:
+            listOfDocuments.append(document)
+
+        strindata = json.dumps(listOfDocuments,default=str)
+        jsondata = json.loads(strindata)
+
+        return JsonResponse(jsondata,safe=False)
+
         # 'safe=False' for objects serialization
  
     elif request.method == 'POST':
