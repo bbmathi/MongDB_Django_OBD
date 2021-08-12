@@ -41,7 +41,8 @@
 </body>
 
     <script type="text/javascript">
-        var api_url = "http://127.0.0.1:8000/api/obddata";
+        var requestUrl = location.origin;
+        var api_url = requestUrl + "/api/obddata";
         debugger;
         $.ajax(api_url, {
             type: 'GET',

@@ -11,7 +11,7 @@
 
   </div>
 <script  type="application/javascript">
-
+    var requestUrl = location.origin;
     var element = document.getElementById('osm-map');
     var map = L.map(element);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -41,7 +41,7 @@
 
 function callAjax_1(){
             $.ajax({
-                url: "http://127.0.0.1:8000/api/obddata",
+                url: requestUrl + "/api/obddata",
                 dataType: 'json',
                 type: 'get',
                 contentType: 'application/json'
