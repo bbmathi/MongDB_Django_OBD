@@ -46,6 +46,38 @@ def obd_list(request):
     elif request.method == 'DELETE':
         count = Obd.objects.all().delete()
         return JsonResponse({'message': '{} OBD Data were deleted successfully!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
+
+
+def obd_list_history(request):
+    if request.method == 'GET':
+        connection = Databaseconfig()
+        connection.connect()
+        db = dbc.client["OBD"]
+        documents = db['OBD_Device_Status_History'].find()
+        print("documents read", documents)
+        listOfDocuments: List = []
+        for document in documents:
+            listOfDocuments.append(document)
+
+        strindata = json.dumps(listOfDocuments, default=str)
+        jsondata = json.loads(strindata)
+
+        return JsonResponse(jsondata, safe=False)
+
+        # 'safe=False' for objects serialization
+
+    elif request.method == 'POST':
+        obd_data = JSONParser().parse(request)
+        obd_serializer = ObdSerializer(data=obd_data)
+        if obd_serializer.is_valid():
+            obd_serializer.save()
+            return JsonResponse(obd_serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(obd_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        count = Obd.objects.all().delete()
+        return JsonResponse({'message': '{} OBD Data were deleted successfully!'.format(count[0])},
+                            status=status.HTTP_204_NO_CONTENT)
  
  
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -87,5 +119,7 @@ def MapView(request):
     return render(request,"map.html")
 def ChartView(request):
     return render(request,"dashboard.html")
+def CarDetails(request):
+    return render(request,"car_page.html")
 def AlertView(request):
     return render(request,"alert_view.html")

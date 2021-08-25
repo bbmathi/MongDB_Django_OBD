@@ -4,44 +4,13 @@
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
 {% load static %}
-
 {% block content %}
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-        <div class="btn-toolbar dropdown">
-            <button class="btn btn-dark btn-sm me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="fas fa-plus me-2"></span>New Task
-            </button>
-            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-0">
-                <a class="dropdown-item fw-normal rounded-top" href="#"><span class="fas fa-tasks"></span>New Task</a>
-                <a class="dropdown-item fw-normal" href="#"><span class="fas fa-cloud-upload-alt"></span>Upload Files</a>
-                <a class="dropdown-item fw-normal" href="#"><span class="fas fa-user-shield"></span>Preview Security</a>
-                <div role="separator" class="dropdown-divider my-0"></div>
-                <a class="dropdown-item fw-normal rounded-bottom" href="#"><span class="fas fa-rocket text-danger"></span>Upgrade to Pro</a>
-            </div>
-        </div>
 
-        <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-primary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-primary">Export</button>
-        </div>
-    </div>
-
-<div class="container">
-			<div class="row" id="alertsContainer">
-                </div>
-			</div>
-
-<template id="alertsTemplate">
-    <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12" data-imei>
-                    <div class="widget">
-                        <div class="panel-heading">
-                    <div class="panel-title" >
-                        <div class="mb-0 IEMI_Tag" data-imei style="font-size:18px;color:#1a73e8"></div>
-                           <a href="cardetails"> <i class="fa fa-share-square" style="text-align:right" aria-hidden="true"></i></a></div>
-
-                </div>
-						 <p style="text-align:center"><img src="/static/assets/img/car/car-1.png" alt="" class="img-circle" style="width:75px;" id="user-img"></p>
-                      <div class="detail">
+<div class="row">
+  <div class="col md-3">
+    <div class="widget">
+      <div class="panel-heading"></div>
+      <div class="detail">
                         <div class="summary-block">
                             <div class="summary-content">
                                 <div class="fas fa-exclamation-triangle "><span class="summary-title"> Alert ID</span></div>
@@ -108,51 +77,74 @@
                         </div>
                     </div>
                     </div>
-                </div>
-</template>
-<script type="application/javascript">
+  </div>
+    <div class="col md-3">
+       <p style="text-align:center"><img src="/static/assets/img/car/car-1.png" alt="" class="img-circle" id="user-img"></p>
+  </div>
+    <div class="col md-3">
+    <div id="osm-map" style="padding:5px;height:250px;">
+
+
+  </div>
+  </div>
+</div>
+
+<script  type="application/javascript">
     var requestUrl = location.origin;
+    var element = document.getElementById('osm-map');
+    var map = L.map(element);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    map.fitWorld();
+    function success(data){
+        jsonData = data;
+        debugger;
+        var targets = [];
+        $.each(jsonData , function(idx,val){
+            var lat = val.Latitude;
+            var lon = val.Longitude
+            var imei = val.IMEI;
+            var timestamp = val.timestamp;
+            var target = L.latLng(lat, lon);
+            targets.push(target);
 
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": requestUrl + "/api/obddata",
-        "method": "GET"
-    }
-    $.ajax(Object.assign(settings)).done(function (response) {
-        console.log(response);
-        var content = response.Rpm;
-        var id = response.IMEI
-        appendTemplate(response);
-        var td = clone.querySelectorAll("td");
+            var mark=L.marker(target).bindPopup("Tag_ID: "+imei).addTo(map);
+            mark.openPopup();
 
-    });
-
-    function appendTemplate(data) {
-        rpmcontainer =
-            $.each(data, function (idx, val) {
-                debugger;
-                var template = document.querySelector('#alertsTemplate');
-                var clone = template.content.cloneNode(true);
-                var rpm = clone.querySelectorAll(".RPM_Tag");
-                var imei= clone.querySelectorAll(".IEMI_Tag");
-                var imeiIcon= clone.querySelectorAll(".IEMI_icon");
-                var el = document.querySelector('.notification');
-
-                //rpm[0].innerHTML = val.Rpm;
-                //imei[0].innerHTML = val.IMEI;
-                imei[0].setAttribute("data-imei", val.IMEI);
-                //imeiIcon[0].setAttribute("data-imei", val.IMEI);
-                //imeiIcon[0].setAttribute("data-rpm", val.Rpm);
+        });
+        map.setView(targets[0,2], 50 );
+       // setTimeout(function(){ map.invalidateSize()},);
 
 
-                $('#alertsContainer').append(clone);
-            })
-    }
+                }
+
+function callAjax_1(){
+            $.ajax({
+                url: requestUrl + "/api/obddata",
+                dataType: 'json',
+                type: 'get',
+                contentType: 'application/json'
+})
+
+.done(function (data) { success(data); })
+.fail(function (jqXHR, textStatus, errorThrown) {  console.log(jqXhr); });
+              }
+
+$(document).ready(function(e){
+    callAjax_1();
+
+});
+
 </script>
+
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+
+
+
+{% endblock javascripts %}

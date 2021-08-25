@@ -36,8 +36,9 @@
             <div class="row d-block d-xl-flex align-items-center">
                 <div
                     class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                    <p style="text-align:center"><img src="/static/assets/img/car/car-1.png" alt="" class="img-circle" style="width:500px;" id="user-img"></p>
                     <span class="fa-stack fa-lg">
-                        <i class="fas fa-tachometer-alt fa-stack-1x IEMI_icon" data-imei data-rpm style="font-size:80px;color:black"></i>
+                        <i class="fas fa-tachometer-alt fa-stack-1x IEMI_icon" data-imei data-rpm style="font-size:20px;color:black"></i>
                     </span>
                 </div>
                 <div class="col-12 col-xl-7 px-xl-0">
@@ -66,7 +67,7 @@
         var content = response.Rpm;
         var id = response.IMEI
         appendTemplate(response);
-        var td = clone.querySelectorAll("td");
+        //var td = clone.querySelectorAll("td");
 
     });
 
@@ -79,6 +80,7 @@
                 var rpm = clone.querySelectorAll(".RPM_Tag");
                 var imei= clone.querySelectorAll(".IEMI_Tag");
                 var imeiIcon= clone.querySelectorAll(".IEMI_icon");
+                var el = document.querySelector('.notification');
                
                 rpm[0].innerHTML = val.Rpm;
                 imei[0].innerHTML = val.IMEI;
@@ -92,9 +94,7 @@
                 }
                 else{
                     imeiIcon[0].style.color = "black";
-                }
-
-                
+                }             
 
                 $('#rpmcontainer').append(clone);
             })

@@ -9,7 +9,7 @@
     <!-- Here a loader is created which
              loads till response comes -->
     <div class="d-flex justify-content-center"></div>
-    <h4>OBD Data</h4>
+    <h4>OBD Live Data</h4>
     <!-- table for showing data -->
     <div id="obdData">
       <div class="card card-body shadow-sm table-wrapper table-responsive">
@@ -33,6 +33,37 @@
             </tr>
             </thead>
             <tbody id="obdTableData">
+
+            </tbody>
+        </table>
+    </div>
+         </div>
+<br>
+<div class="d-flex justify-content-center"></div>
+    <h4>OBD HistoryData</h4>
+    <!-- table for showing data -->
+    <div id="HistoryData">
+      <div class="card card-body shadow-sm table-wrapper table-responsive">
+      <table class="table table-hover">
+            <thead>
+                <tr>
+                <th>ORG ID</th>
+                <th>SITE ID</th>
+                <th>VOB ID</th>
+                <th>OBD TAG ID</th>
+                <th>IMEI ID</th>
+                <th>LATITUDE</th>
+                <th>NORTH/SOUTH</th>
+                <th>LONGITUDE</th>
+                <th>EAST/WEST</th>
+                <th>SS</th>
+                <th>TIMEOUT</th>
+                <th>STATUS</th>
+                <th>RPM</th>
+                <th>BATTERY LEVEL</th>
+            </tr>
+            </thead>
+            <tbody id="obdHistoryTableData">
 
             </tbody>
         </table>
@@ -76,6 +107,48 @@
                 tr += '</tr>'
             });
             $('#obdTableData').append(tr);
+        }
+
+    </script>
+
+
+    <script type="text/javascript">
+        var requestUrl = location.origin;
+        var api_url_2 = requestUrl + "/api/historydata";
+        debugger;
+        $.ajax(api_url_2, {
+            type: 'GET',
+            success: function (data, status, xhr) {
+                writeTableContent2(data)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                alert(errorMessage)
+            }
+        });
+
+        function writeTableContent2(response) {
+            var tr = '';
+            $.each(response, function (i, item) {
+                tr += '<tr>'
+                tr += '<td>' + item.OrgID + '</td>'
+                tr += '<td>' + item.SiteID + '</td>'
+                tr += '<td>' + item.VOB_ID + '</td>'
+                tr += '<td>' + item.OBD_Tag_ID + '</td>'
+                tr += '<td>' + item.IMEI + '</td>'
+                tr += '<td>' + item.Latitude + '</td>'
+                tr += '<td>' + item.North_South + '</td>'
+                tr += '<td>' + item.Longitude + '</td>'
+                tr += '<td>' + item.East_West + '</td>'
+                tr += '<td>' + item.Signal_Strength + '</td>'
+                tr += '<td>' + item.timeout + '</td>'
+                tr += '<td>' + item.Device_Status + '</td>'
+                tr += '<td>' + item.Rpm + '</td>'
+                tr += '<td>' + item.Internal_battery_Level + '</td>'
+
+                ;
+                tr += '</tr>'
+            });
+            $('#obdHistoryTableData').append(tr);
         }
 
     </script>
